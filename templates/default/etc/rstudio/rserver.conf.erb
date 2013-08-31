@@ -1,0 +1,11 @@
+www-port=<%= node[:rstudio][:server][:www_port] %>
+www-address=<%= node[:rstudio][:server][:www_address] %>
+<% if node[:rstudio][:server][:ld_library_path] != '' %>
+rsession-ld-library-path=<%= node[:rstudio][:server][:ld_library_path] %>
+<% end %>
+<% if node[:rstudio][:server][:r_binary_path] != '' %>
+rsession-which-r=<%= node[:rstudio][:server][:r_binary_path] %>
+<% end %>
+<% if node[:rstudio][:server][:user_group] != '' %>
+auth-required-user-group=<%= node[:rstudio][:server][:user_group] %>
+<% end %>

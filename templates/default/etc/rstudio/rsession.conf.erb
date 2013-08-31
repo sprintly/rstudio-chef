@@ -1,0 +1,5 @@
+session-timeout-minutes=<%= node[:rstudio][:session][:timeout] %>
+<% if node[:rstudio][:session][:package_path] != '' %>
+r-libs-user=<%= node[:rstudio][:session][:package_path] %>
+<% end %>
+r-cran-repos=<%= node[:rstudio][:session][:cran_repo] %>

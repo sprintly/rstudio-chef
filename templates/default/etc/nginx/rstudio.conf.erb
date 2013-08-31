@@ -1,0 +1,29 @@
+<% if @use_ssl %>
+server {
+    listen      80;
+    server_name <%= node[:rstudio][:nginx][:server_name] %>;
+    rewrite     ^   https://$server_name$request_uri? permanent;
+}
+
+<% end %>
+server {
+  <% if @use_ssl %>
+  listen                    443 ssl;
+  ssl                       on;
+  ssl_certificate           <%= node[:rstudio][:ssl][:crt_file] %>;
+  ssl_certificate_key       <%= node[:rstudio][:ssl][:key_file] %>;
+  ssl_protocols             SSLv3 TLSv1;
+  ssl_ciphers               ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM;
+  <% else %>
+  listen        <%= node[:rstudio][:nginx][:port] %>;
+  <% end %>
+  server_name   <%= node[:rstudio][:nginx][:server_name] %>;
+
+  location <%= node[:rstudio][:nginx][:location] %> {
+  <% if node[:rstudio][:nginx][:location] != '/' %>
+    rewrite ^<%= node[:rstudio][:nginx][:location] %>(.*)$ /$1 break;
+  <% end %>
+    proxy_pass http://<%= node[:rstudio][:server][:www_address] %>:<%= node[:rstudio][:server][:www_port] %>;
+    proxy_redirect http://<%= node[:rstudio][:server][:www_address] %>:<%= node[:rstudio][:server][:www_port] %>/ $scheme://$host<%= node[:rstudio][:nginx][:location] %>;
+  }
+}
