@@ -49,7 +49,7 @@ You can create a password with the `mkpasswd` utility.
 
 ## rstudio::cran
 
-* `node['rstudio']['cran']['uri']` - The CRAN distribution repository. Deafults to `http://cran.stat.ucla.edu/bin/linux/ubuntu`.
+* `node['rstudio']['cran']['uri']` - The CRAN distribution repository. Defaults to `http://cran.stat.ucla.edu/bin/linux/ubuntu`.
 * `node['rstudio']['cran']['key']` - The key for the distribution. Defaults to `E084DAB9`.
 * `node['rstudio']['cran']['keyserver']` - The key server for the repository. Defaults to `keyserver.ubuntu.com`
 
