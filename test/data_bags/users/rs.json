@@ -1,0 +1,9 @@
+{
+  "id": "rs",
+  "groups": "rs",
+  "uid": 2001,
+  "shell": "/bin/bash",
+  "rstudio": {
+      "passwd": "WQtdiGghp/GSU"
+  }
+}
