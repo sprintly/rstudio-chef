@@ -43,7 +43,7 @@ The `rstudio::pam` recipe works on top of the [users](https://github.com/opscode
 
 ```
   "rstudio": {
-    "passwd": "WaaePVGwVzClU"
+    "passwd": "WQtdiGghp/GSU"
   }
 ```
 
