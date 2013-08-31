@@ -35,6 +35,8 @@ The following platforms have been tested:
 * `node['rstudio']['session']['package_path']` - The R package path.
 * `node['rstudio']['session']['cran_repo']` - The CRAN repository to use. Defaults to `http://cran.case.edu/`.
 
+See also: [RStudio Server: Configuring the Server](http://www.rstudio.com/ide/docs/server/configuration)
+
 ## rstudio::pam
 
 The `rstudio::pam` recipe works on top of the [users](https://github.com/opscode-cookbooks/users) cookbook, which uses data bags. In your various `users` data bags, put the following stanza in to create an RStudio account for them:
