@@ -75,3 +75,20 @@ The only thing you need to watch out for is that `rstudio::cran` is listed befor
     "recipe[rstudio::pam]"
   ]
 ```
+
+This is an example configuration for a role file that sets up Nginx with SSL and modifies the default path:
+
+```
+  "default_attributes": {
+    "rstudio": {
+      "nginx": {
+        "server_name": "data.example.com",
+        "location": "/rstudio/"
+      },
+      "ssl": {
+        "crt_file": "/path/to/example.crt",
+        "key_file": "/path/to/example.key"
+      }
+    },
+  }
+```
