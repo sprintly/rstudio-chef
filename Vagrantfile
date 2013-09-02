@@ -33,13 +33,18 @@ Vagrant.configure("2") do |config|
   config.berkshelf.enabled = true
 
   config.vm.provision :chef_solo do |chef|
+    chef.data_bags_path = "test/data_bags"
     chef.json = {
+      :rstudio => {
+        :server => {
+          :www_address => '0.0.0.0'
+        }
+      }
     }
 
     chef.run_list = [
         "recipe[chef-solo-search]",
         "recipe[apt]",
-        "recipe[rstudio::default]",
         "recipe[rstudio::cran]", # rstudio::cran must come before rstudio::server
         "recipe[rstudio::server]",
         "recipe[rstudio::pam]"
