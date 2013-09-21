@@ -24,6 +24,6 @@ server {
     rewrite ^<%= node[:rstudio][:nginx][:location] %>(.*)$ /$1 break;
   <% end %>
     proxy_pass http://<%= node[:rstudio][:server][:www_address] %>:<%= node[:rstudio][:server][:www_port] %>;
-    proxy_redirect http://<%= node[:rstudio][:server][:www_address] %>:<%= node[:rstudio][:server][:www_port] %>/ $scheme://$host<%= node[:rstudio][:nginx][:location] %>;
+    proxy_redirect http://<%= node[:rstudio][:server][:www_address] %>:<%= node[:rstudio][:server][:www_port] %>/ $scheme://$http_host<%= node[:rstudio][:nginx][:location] %>;
   }
 }
