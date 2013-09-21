@@ -6,6 +6,10 @@ end
 
 case node["platform"].downcase
 when "ubuntu"
+    package "libapparmor1" do
+        action :install
+    end
+
     package "libssl0.9.8" do
         action :install
     end
