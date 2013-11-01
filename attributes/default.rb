@@ -48,5 +48,5 @@ default['rstudio']['shiny']['log_dir'] = '/var/log/shiny-server'
 default['rstudio']['shiny']['directory_index'] = 'on'
 
 # Shiny server supports the users cookbook for HTTP Auth
-default['rstudio']['shiny']['htpasswd_file'] = ''
+default['rstudio']['shiny']['htpasswd_file'] = '/etc/shiny-server/htpasswd'
 default['rstudio']['shiny']['htpasswd_group'] = 'sysadmin'

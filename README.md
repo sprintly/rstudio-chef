@@ -4,8 +4,9 @@ This cookbook will install RStudio Server along with some extras that will confi
 
 * `rstudio::server` will download and configure the RServer packages.
 * `rstudio::pam` will install the PAM [pam_pwdfile](https://github.com/tiwe-de/libpam-pwdfile) module. This module allows you to define username/password combinations using the `mkpasswd` utility. This allows you to give access to RStudio Server *without* creating accounts on the server itself.
-* `rstudio::cran` will configure CRAN's package repositories for your specific platform. **NOTE:** This will *not* install CRAN packages. These are only the basic R and a few core packages that are maintained by CRAN. This is useful if you'd rather use CRAN's packages over your distribution's R packages.
+* `rstudio::cran` will install R packages listed in `node['rstudio']['cran']['packages']` using `r_package` from the [r](https://github.com/stevendanna/cookbook-r/) cookbook.
 * `rstudio::nginx` will configure an Nginx site for RStudio. It offers the ability to proxy via a separate URL as well as basic SSL support. When coupled with `rstudio::pam`, you can give remote access to RStudio via Nginx over SSL to people *without* direct access to the server via SSH.
+* `rstudio::shiny` will install and configure the [Shiny Server](http://www.rstudio.com/shiny/server/) packages.
 
 # Requirements
 
@@ -76,12 +77,14 @@ You can create a password with the `mkpasswd` utility.
 
 Installs and configures [Shiny Server](http://www.rstudio.com/shiny/server/). For more information see the documentation on [configuration settings](http://rstudio.github.io/shiny-server/latest/#configuration-settings).
 
-* `node['rstudio']['shiny']['user'] = 'shiny'` - The user that Shiny will run as.
-* `node['rstudio']['shiny']['www_port'] = '8100'` - The port that Shiny will listen on.
-* `node['rstudio']['shiny']['www_address'] = '127.0.0.1'` - The address that Shiny will listen on.
-* `node['rstudio']['shiny']['site_dir'] = '/srv/shiny-server'` - The server directory.
-* `node['rstudio']['shiny']['log_dir'] = '/var/log/shiny-server'` - Where the log files will reside.
-* `node['rstudio']['shiny']['directory_index'] = 'on'` - Whether or not to turn on directory indexing.
+* `node['rstudio']['shiny']['user']` - The user that Shiny will run as. Defaults to `shiny`.
+* `node['rstudio']['shiny']['www_port']` - The port that Shiny will listen on. Defaults to `8100`.
+* `node['rstudio']['shiny']['www_address']` - The address that Shiny will listen on. Defaults to `127.0.0.1`.
+* `node['rstudio']['shiny']['site_dir']` - The server directory. Defaults to `/srv/shiny-server`.
+* `node['rstudio']['shiny']['log_dir']` - Where the log files will reside. Defaults to `/var/log/shiny-server`.
+* `node['rstudio']['shiny']['directory_index']` - Whether or not to turn on directory indexing. Defaults to `on`.
+* `node['rstudio']['shiny']['htpasswd_file']` - Path to the username/password file to use for [authentication](http://nginx.org/en/docs/http/ngx_http_auth_basic_module.html). Defaults to `/etc/shiny-server/htpasswd`.
+* `node['rstudio']['shiny']['htpasswd_group']` - The group to use for `node['rstudio']['shiny']['htpasswd_file']`, which requires use of the [users](https://github.com/opscode-cookbooks/users) cookbook. Defaults to `sysadmin`.
 
 # Usage
 
