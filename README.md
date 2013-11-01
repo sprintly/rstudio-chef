@@ -17,6 +17,7 @@ The following Chef cookbooks are required:
 * [r](https://github.com/stevendanna/cookbook-r/)
 * [apt](https://github.com/opscode-cookbooks/apt)
 * [nginx](https://github.com/opscode-cookbooks/nginx)
+* [users](https://github.com/opscode-cookbooks/users)
 
 ## Platform
 
