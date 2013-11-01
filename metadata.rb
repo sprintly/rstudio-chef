@@ -9,3 +9,4 @@ version          '0.2.0'
 depends "apt"
 depends "nginx"
 depends "r"
+depends "users"
