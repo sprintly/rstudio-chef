@@ -13,14 +13,22 @@ This cookbook will install RStudio Server along with some extras that will confi
 
 The following Chef cookbooks are required:
 
-* apt
-* nginx
+* [r](https://github.com/stevendanna/cookbook-r/)
+* [apt](https://github.com/opscode-cookbooks/apt)
+* [nginx](https://github.com/opscode-cookbooks/nginx)
 
 ## Platform
 
-The following platforms have been tested:
+The following platforms are supported:
 
-* Ubuntu 12.04 LTS (Precise)
+* Ubuntu
+* Debian
+
+By default RStudio and its related packages are installed via APT on Debian/Ubuntu. You can modify the default repository using the following attribributes.
+
+* `node['rstudio']['apt']['uri']` - The URI of the APT repository. Defaults to `http://cran.stat.ucla.edu/bin/linux/ubuntu` on Ubuntu and `'http://cran.stat.ucla.edu/bin/linux/debian` on Debian.
+* `node['rstudio']['apt']['key']` - The key for the distribution. Defaults to `E084DAB9`.
+* `node['rstudio']['apt']['keyserver']` - The key server for the repository. Defaults to `keyserver.ubuntu.com`
 
 # Attributes
 
@@ -51,9 +59,8 @@ You can create a password with the `mkpasswd` utility.
 
 ## rstudio::cran
 
-* `node['rstudio']['cran']['uri']` - The CRAN distribution repository. Defaults to `http://cran.stat.ucla.edu/bin/linux/ubuntu`.
-* `node['rstudio']['cran']['key']` - The key for the distribution. Defaults to `E084DAB9`.
-* `node['rstudio']['cran']['keyserver']` - The key server for the repository. Defaults to `keyserver.ubuntu.com`
+* `node['rstudio']['cran']['mirror']` - The CRAN distribution repository. Defaults to `http://cran.rstudio.com/`. This value is used to set `r-cran-repos` in `rsession.conf`.
+* `node['rstudio']['cran']['packages'] - A list of CRAN packages to install using the `r_package` LWRP from the [r](https://github.com/stevendanna/cookbook-r/) cookbook.
 
 ## rstudio::nginx
 
@@ -64,6 +71,17 @@ You can create a password with the `mkpasswd` utility.
 * `node['rstudio']['ssl']['key_file']` - Your SSL certificate's private key file.
 
 **NOTE:** The Nginx recipe does *not* use HTTP-Auth. This is because RStudio will *only* authenticate via PAM. There is no way to turn off authentication either.
+
+## rstudio::shiny
+
+Installs and configures [Shiny Server](http://www.rstudio.com/shiny/server/). For more information see the documentation on [configuration settings](http://rstudio.github.io/shiny-server/latest/#configuration-settings).
+
+* `node['rstudio']['shiny']['user'] = 'shiny'` - The user that Shiny will run as.
+* `node['rstudio']['shiny']['www_port'] = '8100'` - The port that Shiny will listen on.
+* `node['rstudio']['shiny']['www_address'] = '127.0.0.1'` - The address that Shiny will listen on.
+* `node['rstudio']['shiny']['site_dir'] = '/srv/shiny-server'` - The server directory.
+* `node['rstudio']['shiny']['log_dir'] = '/var/log/shiny-server'` - Where the log files will reside.
+* `node['rstudio']['shiny']['directory_index'] = 'on'` - Whether or not to turn on directory indexing.
 
 # Usage
 

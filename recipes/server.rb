@@ -1,31 +1,21 @@
+# Set up the package repository.
 case node["platform"].downcase
-when "ubuntu"
-    version = "0.97.551"
-    arch = node['kernel']['machine'] =~ /x86_64/ ? "amd64" : "i386"
-end
+when "ubuntu", "debian"
+    include_recipe "apt"
 
-case node["platform"].downcase
-when "ubuntu"
-    package "libapparmor1" do
-        action :install
-    end
-
-    package "libssl0.9.8" do
-        action :install
+    apt_repository "rstudio-cran" do
+        uri node['rstudio']['apt']['uri']
+        keyserver node['rstudio']['apt']['keyserver']
+        key node['rstudio']['apt']['key']
+        distribution "#{node['lsb']['codename']}/"
     end
 
     package "r-base" do
         action :install
     end
 
-    RSTUDIO_FILE = "rstudio-server-#{version}-#{arch}.deb"
-    remote_file "/tmp/#{RSTUDIO_FILE}" do
-        source "http://download2.rstudio.org/#{RSTUDIO_FILE}"
-    end
-
-    execute "install_rstudio" do
-        command "dpkg --install /tmp/#{RSTUDIO_FILE}"
-        not_if { ::File.exists?("/usr/sbin/rstudio-server")}
+    package "rstudio-server" do
+        action :install
     end
 end
 

@@ -1,0 +1,11 @@
+run_as <%= node['rstudio']['shiny']['user'] %>;
+
+server {
+  listen <%= node['rstudio']['shiny']['port'] %> <%= node['rstudio']['shiny']['www_address'] %>;
+
+  location / {
+    site_dir <%= node['rstudio']['shiny']['site_dir'] %>;
+    log_dir <%= node['rstudio']['shiny']['log_dir'] %>;
+    directory_index <%= node['rstudio']['shiny']['directory_index'] %>;
+  }
+}
