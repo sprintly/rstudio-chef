@@ -29,8 +29,8 @@ The following platforms are supported:
 By default RStudio and its related packages are installed via APT on Debian/Ubuntu. You can modify the default repository using the following attribributes.
 
 * `node['rstudio']['apt']['uri']` - The URI of the APT repository. Defaults to `http://cran.stat.ucla.edu/bin/linux/ubuntu` on Ubuntu and `'http://cran.stat.ucla.edu/bin/linux/debian` on Debian.
-* `node['rstudio']['apt']['key']` - The key for the distribution. Defaults to `E084DAB9`.
-* `node['rstudio']['apt']['keyserver']` - The key server for the repository. Defaults to `keyserver.ubuntu.com`
+* `node['rstudio']['apt']['key']` - The key for the distribution. Defaults to `E084DAB9` on Ubunto and `381BA480` on Debian.
+* `node['rstudio']['apt']['keyserver']` - The key server for the repository. Defaults to `keyserver.ubuntu.com` on Ubuntu and `subkeys.pgp.net` on Debian.
 
 # Attributes
 
