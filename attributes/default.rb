@@ -43,10 +43,19 @@ default['rstudio']['ssl']['key_file'] = ''
 default['rstudio']['shiny']['user'] = 'shiny'
 default['rstudio']['shiny']['www_port'] = '8100'
 default['rstudio']['shiny']['www_address'] = '127.0.0.1'
-default['rstudio']['shiny']['site_dir'] = '/srv/shiny-server'
+default['rstudio']['shiny']['site_dir'] = '/var/shiny-server/www'
 default['rstudio']['shiny']['log_dir'] = '/var/log/shiny-server'
 default['rstudio']['shiny']['directory_index'] = 'on'
 
+# Shiny can't be installe by APT. Don't get me started.
+default['rstudio']['shiny']['version'] = '0.4.0.8'
+default['rstudio']['shiny']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? "amd64" : "i386"
+if default['rstudio']['shiny']['arch'] == 'amd64'
+    default['rstudio']['shiny']['base_download_url'] = 'http://download3.rstudio.org/ubuntu-12.04/x86_64'
+else
+    raise Exception, "This cookbook doesn't work with i386."
+end
+
 # Shiny server supports the users cookbook for HTTP Auth
-default['rstudio']['shiny']['htpasswd_file'] = '/etc/shiny-server/htpasswd'
+default['rstudio']['shiny']['htpasswd_file'] = ''
 default['rstudio']['shiny']['htpasswd_group'] = 'sysadmin'
