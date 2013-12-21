@@ -2,9 +2,12 @@ package "libpam-pwdfile" do
     action :install
 end
 
-users = search(:users, 'groups:rstudio')
+if Chef::Config[:solo]
+  Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
+else
+  users = search(:users, 'groups:rstudio')
 
-template "/etc/rstudio/passwd" do
+  template "/etc/rstudio/passwd" do
     source "etc/rstudio/passwd.erb"
     owner 'rstudio-server'
     group 'rstudio-server'
@@ -13,11 +16,12 @@ template "/etc/rstudio/passwd" do
       :users => users
     )
     notifies :restart, resources(:service => "rstudio-server")
-end
+  end
 
-cookbook_file "/etc/pam.d/rstudio" do
+  cookbook_file "/etc/pam.d/rstudio" do
     source "pam/etc/pam.d/rstudio"
     owner "root"
     group "root"
     mode 0644
+  end
 end

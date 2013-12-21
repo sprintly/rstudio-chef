@@ -6,8 +6,4 @@ describe 'rstudio::cran' do
       node.set['rstudio']['cran']['packages'] = ['aadsf']
     end.converge(described_recipe)
   end
-
-  it('should include the r cookbook') do
-    expect(chef_run).to include_recipe('r')
-  end
 end

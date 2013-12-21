@@ -1,0 +1,16 @@
+{
+  "id": "jstump",
+  "ssh_keys": "ssh-rsa RANDOM+iSTUFF+GHERE/YnANDSOME/HktrwVw3lAYVITVjTHIS_IS_SECRET!ALSO_JUNK/;slkdfja;lfACD6z0/+//5h/8lmE1IhaEqovMNmlvdmukIA3xMBkwYqWpasd;lfjasd;lkfjas;dlkfjas;kdfja asdf ajoe@example.com",
+  "groups": ["sysadmin", "rstudio"],
+  "uid": 2001,
+  "shell": "\/bin\/bash",
+  "comment": "Joe Stump",
+  "nagios": {
+    "email": "joe@exmaple.com",
+    "notification_flags": "w,u,c,r,f"
+  },
+  "rstudio": {
+    "passwd": "Sz99X9L9x9C9U"
+  },
+  "htpasswd": "$apr1$secret$stuffha9dy9s9f9999"
+}

@@ -29,32 +29,35 @@ end
 group "shiny"
 
 user "shiny" do
-    gid "shiny"
-    action :create
+  gid "shiny"
+  action :create
 end
 
 template "/etc/init/shiny-server.conf" do
-    source "etc/init/shiny-server.conf.erb"
-    mode "0644"
-    owner "root"
-    group "root"
+  source "etc/init/shiny-server.conf.erb"
+  mode "0644"
+  owner "root"
+  group "root"
 end
 
 service "shiny-server" do
-    provider Chef::Provider::Service::Upstart
-    supports :start => true, :stop => true, :restart => true, :reload => true
-    action [:enable, :start]
+  provider Chef::Provider::Service::Upstart
+  supports :start => true, :stop => true, :restart => true, :reload => true
+  action [:enable, :start]
 end
 
 template "/etc/shiny-server/shiny-server.conf" do
-    source "etc/shiny-server/shiny-server.conf.erb"
-    mode "0644"
-    owner "root"
-    group "root"
-    notifies :reload, resources(:service => "shiny-server")
+  source "etc/shiny-server/shiny-server.conf.erb"
+  mode "0644"
+  owner "root"
+  group "root"
+  notifies :reload, resources(:service => "shiny-server")
 end
 
 if node['rstudio']['shiny']['htpasswd_file'] != ''
+  if Chef::Config[:solo]
+    Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
+  else
     users = search(:users, "groups:#{node['rstudio']['shiny']['htpasswd_group']}")
 
     template node['rstudio']['shiny']['htpasswd_file'] do
@@ -68,5 +71,6 @@ if node['rstudio']['shiny']['htpasswd_file'] != ''
         action :create
         notifies :reload, resources(:service => "nginx")
     end
+  end
 end
 
