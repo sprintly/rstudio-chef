@@ -15,7 +15,7 @@ else
     variables(
       :users => users
     )
-    notifies :restart, resources(:service => "rstudio-server")
+    notifies :restart, "service[rstudio-server]"
   end
 
   cookbook_file "/etc/pam.d/rstudio" do

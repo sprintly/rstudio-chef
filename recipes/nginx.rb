@@ -12,7 +12,7 @@ when "ubuntu"
     template_file = "/etc/nginx/sites-available/#{server_name}"
 end
 
-if node[:rstudio][:ssl][:crt_file] != '' && node[:rstudio][:ssl][:crt_file] != ''
+if node['rstudio']['ssl']['crt_file'] != '' && node['rstudio']['ssl']['crt_file'] != ''
     use_ssl = true
 else
     use_ssl = false
@@ -24,7 +24,7 @@ template template_file do
     owner "root"
     group "root"
     variables({:use_ssl => use_ssl})
-    notifies :reload, resources(:service => "nginx")
+    notifies :reload, "service[nginx]"
 end
 
 nginx_site server_name

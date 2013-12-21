@@ -30,7 +30,7 @@ template "/etc/rstudio/rserver.conf" do
     mode 0644
     owner "root"
     group "root"
-    notifies :restart, resources(:service => "rstudio-server")
+    notifies :restart, "service[rstudio-server]"
 end
 
 template "/etc/rstudio/rsession.conf" do
@@ -38,5 +38,5 @@ template "/etc/rstudio/rsession.conf" do
     mode 0644
     owner "root"
     group "root"
-    notifies :restart, resources(:service => "rstudio-server")
+    notifies :restart, "service[rstudio-server]"
 end

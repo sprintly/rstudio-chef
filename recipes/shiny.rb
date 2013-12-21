@@ -51,7 +51,7 @@ template "/etc/shiny-server/shiny-server.conf" do
   mode "0644"
   owner "root"
   group "root"
-  notifies :reload, resources(:service => "shiny-server")
+  notifies :reload, "service[shiny-server]"
 end
 
 if node['rstudio']['shiny']['htpasswd_file'] != ''
@@ -69,7 +69,7 @@ if node['rstudio']['shiny']['htpasswd_file'] != ''
             :users => users
         )
         action :create
-        notifies :reload, resources(:service => "nginx")
+        notifies :reload, "service[nginx]"
     end
   end
 end
