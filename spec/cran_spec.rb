@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe 'rstudio::cran' do
   let(:chef_run) do
-    ChefSpec::Runner.new do |node|
-      node.set['rstudio']['cran']['packages'] = ['aadsf']
-    end.converge(described_recipe)
+    runner = ChefSpec::Runner.new(platform: 'ubuntu', version: '12.04')
+    runner.converge(described_recipe)
   end
 end
