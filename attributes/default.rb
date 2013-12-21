@@ -50,11 +50,6 @@ default['rstudio']['shiny']['directory_index'] = 'on'
 # Shiny can't be installe by APT. Don't get me started.
 default['rstudio']['shiny']['version'] = '0.4.0.8'
 default['rstudio']['shiny']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? "amd64" : "i386"
-if default['rstudio']['shiny']['arch'] == 'amd64'
-    default['rstudio']['shiny']['base_download_url'] = 'http://download3.rstudio.org/ubuntu-12.04/x86_64'
-else
-    raise Exception, "This cookbook doesn't work with i386."
-end
 
 # Shiny server supports the users cookbook for HTTP Auth
 default['rstudio']['shiny']['htpasswd_file'] = ''

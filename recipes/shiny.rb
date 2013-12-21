@@ -1,10 +1,16 @@
+if default['rstudio']['shiny']['arch'] == 'amd64'
+    base_download_url = 'http://download3.rstudio.org/ubuntu-12.04/x86_64'
+else
+    raise Exception, "This cookbook doesn't work with i386."
+end
+
 case node["platform"].downcase
 when "ubuntu", "debian"
     include_recipe "apt"
 
     package "r-base"
 
-    remote_shiny_server_file = "#{node['rstudio']['shiny']['base_download_url']}/shiny-server-#{node['rstudio']['shiny']['version']}-#{node['rstudio']['shiny']['arch']}.deb"
+    remote_shiny_server_file = "#{base_download_url}/shiny-server-#{node['rstudio']['shiny']['version']}-#{node['rstudio']['shiny']['arch']}.deb"
     local_shiny_server_file = "/tmp/shiny-server-shiny-server-#{node['rstudio']['shiny']['version']}-#{node['rstudio']['shiny']['arch']}.deb"
     remote_file local_shiny_server_file do
         source remote_shiny_server_file 
