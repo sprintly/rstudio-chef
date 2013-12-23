@@ -1,3 +1,5 @@
+include_recipe 'rstudio::server'
+
 package "libpam-pwdfile" do
     action :install
 end
