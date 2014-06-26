@@ -27,4 +27,8 @@ template template_file do
     notifies :reload, "service[nginx]"
 end
 
-nginx_site server_name
+nginx_site server_name do
+  server_name server_name
+  default_server true
+  template "etc/nginx/rstudio.conf.erb"
+end
