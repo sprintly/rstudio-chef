@@ -1,4 +1,6 @@
-if default['rstudio']['shiny']['arch'] == 'amd64'
+include_recipe 'r'
+
+if node['rstudio']['shiny']['arch'] == 'amd64'
     base_download_url = 'http://download3.rstudio.org/ubuntu-12.04/x86_64'
 else
     raise Exception, "This cookbook doesn't work with i386."
