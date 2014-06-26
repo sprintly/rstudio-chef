@@ -44,8 +44,15 @@ end
 
 service "shiny-server" do
   provider Chef::Provider::Service::Upstart
-  supports :start => true, :stop => true, :restart => true, :reload => true
+  supports :start => true, :stop => true
   action [:enable, :start]
+end
+
+directory '/etc/shiny-server' do
+  action :create
+  mode "0755"
+  owner "root"
+  group "root"
 end
 
 template "/etc/shiny-server/shiny-server.conf" do
@@ -53,7 +60,7 @@ template "/etc/shiny-server/shiny-server.conf" do
   mode "0644"
   owner "root"
   group "root"
-  notifies :reload, "service[shiny-server]"
+  notifies :restart, "service[shiny-server]"
 end
 
 if node['rstudio']['shiny']['htpasswd_file'] != ''
