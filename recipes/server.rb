@@ -14,8 +14,19 @@ when "ubuntu", "debian"
         action :install
     end
 
+    execute 'download-server-package' do
+        command 'wget http://download2.rstudio.org/rstudio-server-0.97.336-amd64.deb -O /tmp/rstudio.deb'
+        retries 20
+        retry_delay 10
+        creates '/tmp/rstudio.deb'
+    end
+
+    package 'gdebi'
+
     package "rstudio-server" do
         action :install
+        source '/tmp/rstudio.deb'
+        provider Chef::Provider::Package::Gdebi
     end
 end
 
