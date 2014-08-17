@@ -1,6 +1,6 @@
 # Set up the package repository.
-case node["platform"].downcase
-when "ubuntu", "debian"
+case platform_family
+when "debian"
     include_recipe "apt"
 
     apt_repository "rstudio-cran" do
@@ -33,7 +33,7 @@ when "ubuntu", "debian"
       action :upgrade
     end
 
-when "redhat", "centos", "fedora"
+when "rhel"
     Chef::Application.fatal!("Redhat based platforms are not yet supported")
 end
 
