@@ -1,4 +1,4 @@
-if default['rstudio']['shiny']['arch'] == 'amd64'
+if node['rstudio']['shiny']['arch'] == 'amd64'
     base_download_url = 'http://download3.rstudio.org/ubuntu-12.04/x86_64'
 else
     raise Exception, "This cookbook doesn't work with i386."
@@ -44,6 +44,19 @@ service "shiny-server" do
   provider Chef::Provider::Service::Upstart
   supports :start => true, :stop => true, :restart => true, :reload => true
   action [:enable, :start]
+end
+
+directory "/etc/shiny-server" do
+  owner "root"
+  group "root"
+  action :create
+end
+
+directory node['rstudio']['shiny']['site_dir'] do
+  owner "root"
+  group "root"
+  action :create
+  recursive true
 end
 
 template "/etc/shiny-server/shiny-server.conf" do
