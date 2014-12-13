@@ -1,5 +1,5 @@
 # Set up the package repository.
-case platform_family
+case node['platform_family'].downcase
 when "debian"
     include_recipe "apt"
 
@@ -22,7 +22,7 @@ when "debian"
     remote_rstudio_server_file = "#{node['rstudio']['server']['base_download_url']}/rstudio-server-#{node['rstudio']['server']['version']}-#{node['rstudio']['server']['arch']}.deb"
     local_rstudio_server_file = "#{Chef::Config[:file_cache_path]}/rstudio-server-#{node['rstudio']['server']['version']}-#{node['rstudio']['server']['arch']}.deb"
     remote_file local_rstudio_server_file do
-        source remote_rstudio_server_file 
+        source remote_rstudio_server_file
         action :create_if_missing
         not_if { ::File.exists?('/etc/init/shiny-server.conf') }
     end
@@ -30,7 +30,7 @@ when "debian"
     Chef::Log.info('Installing RStudio Server via dpkg.')
     dpkg_package "rstudio-server" do
       source local_rstudio_server_file
-      action :upgrade
+      action :install
     end
 
 when "rhel"
