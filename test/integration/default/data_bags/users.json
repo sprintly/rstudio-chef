@@ -1,0 +1,17 @@
+{
+  "id": "bofh",
+  "password": "$1$d...HgH0",
+  "ssh_keys": [
+    "ssh-rsa AAA123...xyz== foo",
+    "ssh-rsa AAA456...uvw== bar"
+  ],
+  "groups": [ "sysadmin", "dba", "devops" ],
+  "uid": 2001,
+  "shell": "\/bin\/bash",
+  "comment": "BOFH",
+  "nagios": {
+    "pager": "8005551212@txt.att.net",
+    "email": "bofh@example.com"
+  },
+  "openid": "bofh.myopenid.com"
+}
