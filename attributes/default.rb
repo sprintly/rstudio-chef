@@ -30,7 +30,7 @@ default['rstudio']['server']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? "
 # RStudio Session
 default['rstudio']['session']['timeout'] = '30'
 default['rstudio']['session']['package_path'] = ''
-default['rstudio']['session']['cran_repo'] = 'http://cran.case.edu/'
+default['rstudio']['session']['cran_repo'] = 'https://cran.fhcrc.org/'
 
 # Nginx
 default['rstudio']['nginx']['port'] = '80'
