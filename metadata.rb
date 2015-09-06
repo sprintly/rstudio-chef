@@ -9,3 +9,4 @@ version          '0.3.0'
 depends "apt"
 depends "nginx"
 depends "r"
+depends "chef-sugar"

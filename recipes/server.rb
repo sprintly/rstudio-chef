@@ -1,6 +1,7 @@
 # Set up the package repository.
-case platform_family
-when "debian"
+include_recipe 'chef-sugar::default'
+
+if debian?
     include_recipe "apt"
 
     apt_repository "rstudio-cran" do
@@ -32,9 +33,23 @@ when "debian"
       source local_rstudio_server_file
       action :upgrade
     end
+end
 
-when "rhel"
-    Chef::Application.fatal!("Redhat based platforms are not yet supported")
+if rhel?
+    # Chef::Application.fatal!("Redhat based platforms are not yet supported")
+    package "R" do
+        action :install
+    end
+    
+    remote_file 'rstudio' do
+        source 'https://download2.rstudio.org/rstudio-server-rhel-0.99.483-x86_64.rpm'
+        action :create_if_missing
+    end
+    
+    package 'rstudio' do
+        source 'rstudio'
+        action :install
+    end
 end
 
 service "rstudio-server" do
