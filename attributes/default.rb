@@ -1,5 +1,5 @@
 # CRAN
-default['rstudio']['cran']['mirror'] = 'http://cran.rstudio.com/'
+default['rstudio']['cran']['mirror'] = 'https://cran.rstudio.com/'
 
 # APT configuration for Ubuntu or Debian installs.
 case node["platform"].downcase  
@@ -50,7 +50,7 @@ default['rstudio']['shiny']['site_dir'] = '/var/shiny-server/www'
 default['rstudio']['shiny']['log_dir'] = '/var/log/shiny-server'
 default['rstudio']['shiny']['directory_index'] = 'on'
 
-# Shiny can't be installe by APT. Don't get me started.
+# Shiny can't be installed by APT. Don't get me started.
 default['rstudio']['shiny']['version'] = '0.4.0.8'
 default['rstudio']['shiny']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? "amd64" : "i386"
 
