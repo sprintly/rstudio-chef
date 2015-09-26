@@ -23,6 +23,10 @@ suites:
       - recipe[rstudio::server]
 
     attributes:
+        r:
+            version: "3.2.2"
+            checksum: "9c9152e74134b68b0f3a1c7083764adc1cb56fd8336bec003fd0ca550cd2461d"
+            config_opts: [ "--enable-R-shlib=yes", "--with-x=no", "--prefix=/usr/local" ]
 
   - name: users
     data_bags_path: "test/integration/default/data_bags"
