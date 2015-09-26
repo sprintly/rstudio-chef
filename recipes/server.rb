@@ -29,16 +29,16 @@ if rhel?
     
     include_recipe 'yum-epel'
     
-    package "R" do
-        action :install
-    end
+    #package "R" do
+    #    action :install
+    #end
 
     if _64_bit?
         arch = "x86_64"
     else
         arch = "i686"
     end
-		
+
     remote_rstudio_server_file = "#{node['rstudio']['server']['base_download_url']}/rstudio-server-rhel-#{node['rstudio']['server']['version']}-#{arch}.rpm"
     local_rstudio_server_file = "#{Chef::Config[:file_cache_path]}/rstudio-server-rhel-#{node['rstudio']['server']['version']}-#{arch}.rpm"
 end
@@ -67,7 +67,6 @@ service "rstudio-server" do
     supports :start => true, :stop => true, :restart => true
     action :start
 end
-
 
 # create our config files
 template "/etc/rstudio/rserver.conf" do
