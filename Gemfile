@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 
-gem "berkshelf", github: "berkshelf/berkshelf"
-gem 'vagrant-berkshelf', github: "berkshelf/vagrant-berkshelf"
-gem 'vagrant-omnibus', github: "schisamo/vagrant-omnibus"
+gem "berkshelf", '~> 4.0'
+gem 'vagrant-berkshelf', '~> 4.0'
+gem 'vagrant-omnibus', '~> 1.4'
 gem 'foodcritic', '~> 3.0'
-gem 'chef-zero', '~> 1.7'
-gem 'chefspec', :git => 'https://github.com/sethvargo/chefspec.git', :tag => 'v3.1.0.beta.1'
-gem 'fauxhai', '~> 2.0'
+gem 'chef-zero', '~> 4.0'
+gem 'chefspec', '~> 4.5'

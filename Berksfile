@@ -1,6 +1,6 @@
-source "http://api.berkshelf.com"
+source "https://api.berkshelf.com"
 metadata
 
-cookbook 'apt', github: 'opscode-cookbooks/apt', tag: 'v2.3.0'
-cookbook 'nginx', github: 'opscode-cookbooks/nginx', tag: 'v2.2.0'
+cookbook 'apt', '~> 2.9.2'
+cookbook 'nginx', '~> 2.7.6'
 cookbook 'r', github: 'stevendanna/cookbook-r'
