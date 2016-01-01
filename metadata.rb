@@ -9,3 +9,4 @@ version          '0.3.1'
 depends "apt"
 depends "nginx"
 depends "r"
+depends "gdebi"
