@@ -13,3 +13,11 @@ rstudio CHANGELOG
 - Updated the Nginx configuration to support serving both RStudio and Shiny from the same server
 - Now depends on the [r](https://github.com/stevendanna/cookbook-r/) cookbook.
 - Fixed support for `node['rstudio']['cran']['packages']` using `r_package` LWRP from the `r` cookbook.
+
+0.3.1
+-----
+- Test fixes and updated dependency versions
+
+0.4.0
+-----
+- Shiny recipe fix via PR #10
