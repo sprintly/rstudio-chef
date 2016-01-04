@@ -46,6 +46,19 @@ service "shiny-server" do
   action [:enable, :start]
 end
 
+directory "/etc/shiny-server" do
+  owner "root"
+  group "root"
+  action :create
+end
+
+directory node['rstudio']['shiny']['site_dir'] do
+  owner "root"
+  group "root"
+  action :create
+  recursive true
+end
+
 template "/etc/shiny-server/shiny-server.conf" do
   source "etc/shiny-server/shiny-server.conf.erb"
   mode "0644"
