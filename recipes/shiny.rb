@@ -1,4 +1,4 @@
-if default['rstudio']['shiny']['arch'] == 'amd64'
+if node['rstudio']['shiny']['arch'] == 'amd64'
     base_download_url = 'http://download3.rstudio.org/ubuntu-12.04/x86_64'
 else
     raise Exception, "This cookbook doesn't work with i386."
@@ -13,7 +13,7 @@ when "ubuntu", "debian"
     remote_shiny_server_file = "#{base_download_url}/shiny-server-#{node['rstudio']['shiny']['version']}-#{node['rstudio']['shiny']['arch']}.deb"
     local_shiny_server_file = "/tmp/shiny-server-shiny-server-#{node['rstudio']['shiny']['version']}-#{node['rstudio']['shiny']['arch']}.deb"
     remote_file local_shiny_server_file do
-        source remote_shiny_server_file 
+        source remote_shiny_server_file
         action :create_if_missing
         not_if { ::File.exists?('/etc/init/shiny-server.conf') }
     end
