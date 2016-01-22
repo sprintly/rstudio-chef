@@ -18,11 +18,14 @@ end
 default['rstudio']['cran']['packages'] = []
 
 # RStudio Server
+default['rstudio']['server']['base_download_url'] = 'http://download2.rstudio.org'
 default['rstudio']['server']['www_port'] = '8787'
 default['rstudio']['server']['www_address'] = '127.0.0.1'
 default['rstudio']['server']['ld_library_path'] = ''
 default['rstudio']['server']['r_binary_path'] = ''
 default['rstudio']['server']['user_group'] = ''
+default['rstudio']['server']['version'] = '0.98.507'
+default['rstudio']['server']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? "amd64" : "i386"
 
 # RStudio Session
 default['rstudio']['session']['timeout'] = '30'
