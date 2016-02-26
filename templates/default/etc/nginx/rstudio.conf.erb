@@ -12,8 +12,16 @@ server {
   ssl                       on;
   ssl_certificate           <%= node[:rstudio][:ssl][:crt_file] %>;
   ssl_certificate_key       <%= node[:rstudio][:ssl][:key_file] %>;
-  ssl_protocols             SSLv3 TLSv1;
-  ssl_ciphers               ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM;
+  ssl_protocols             <%= node[:rstudio][:nginx][:ssl_protocols] %>;
+  ssl_session_timeout       <%= node[:rstudio][:nginx][:ssl_session_timeout] %>;
+  ssl_session_cache         <%= node[:rstudio][:nginx][:ssl_session_cache] %>;
+  <% if !node[:rstudio][:nginx][:ssl_dhparam].empty? %>
+  ssl_dhparam               <%= node[:rstudio][:nginx][:ssl_dhparam] %>;
+  <% end %>
+  ssl_ciphers               <%= node[:rstudio][:nginx][:ssl_ciphers] %>;
+  ssl_prefer_server_ciphers on;
+  add_header Strict-Transport-Security max-age=<%= node[:rstudio][:nginx][:hsts_max_age] %>;
+
   <% else %>
   listen        <%= node[:rstudio][:nginx][:port] %>;
   <% end %>

@@ -34,6 +34,12 @@ default['rstudio']['nginx']['port'] = '80'
 default['rstudio']['nginx']['server_name'] = ''
 default['rstudio']['nginx']['location'] = '/'
 default['rstudio']['nginx']['shiny_location'] = ''
+default['rstudio']['nginx']['ssl_protocols'] = 'TLSv1.2'
+default['rstudio']['nginx']['ssl_session_timeout'] = '5m'
+default['rstudio']['nginx']['ssl_session_cache'] = 'shared:SSL:50m'
+default['rstudio']['nginx']['ssl_dhparam'] = ''  # Recommended to set
+default['rstudio']['nginx']['ssl_ciphers'] = 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256'
+default['rstudio']['nginx']['hsts_max_age'] = 15768000  # 15768000 seconds = 6 months
 
 # SSL certificates
 default['rstudio']['ssl']['crt_file'] = ''
