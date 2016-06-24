@@ -10,6 +10,8 @@ end
 case node["platform"].downcase
 when "ubuntu"
     template_file = "/etc/nginx/sites-available/#{server_name}"
+when "centos", "redhat", 'scientific', 'amazon', 'oracle'
+    template_file = "/etc/nginx/sites-available/#{server_name}"
 end
 
 if node['rstudio']['ssl']['crt_file'] != '' && node['rstudio']['ssl']['crt_file'] != ''
