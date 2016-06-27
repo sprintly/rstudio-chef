@@ -18,6 +18,7 @@ end
 default['rstudio']['cran']['packages'] = []
 
 # RStudio Server
+default['rstudio']['server']['version'] = '0.99.902'
 default['rstudio']['server']['www_port'] = '8787'
 default['rstudio']['server']['www_address'] = '127.0.0.1'
 default['rstudio']['server']['ld_library_path'] = ''

@@ -1,6 +1,6 @@
 # Set up the package repository.
-case node["platform"].downcase
-when "ubuntu", "debian"
+case node["platform_family"].downcase
+when 'debian'
     include_recipe "apt"
 
     apt_repository "rstudio-cran" do
@@ -15,14 +15,37 @@ when "ubuntu", "debian"
     end
 
     package "rstudio-server" do
+        version #{node['rstudio']['server']['version']}
         action :install
     end
-end
 
-service "rstudio-server" do
-    provider Chef::Provider::Service::Upstart
-    supports :start => true, :stop => true, :restart => true
-    action :start
+    service "rstudio-server" do
+        provider Chef::Provider::Service::Upstart
+        supports :start => true, :stop => true, :restart => true
+        action :start
+    end
+when 'rhel'
+    rpm = "rstudio-server-rhel-#{node['rstudio']['server']['version']}-#{node['kernel']['machine']}.rpm"
+
+    download_url = "http://download2.rstudio.org/#{rpm}"
+    rstudio_package = "#{Chef::Config[:file_cache_path]}/#{rpm}"
+
+    remote_file rstudio_package do
+        source download_url
+        mode 0644
+    end
+
+    package 'rstudio-server' do
+        source rstudio_package
+        action :install
+    end
+
+    service "rstudio-server" do
+        supports :start => true, :stop => true, :restart => true
+        action :start
+    end
+else
+    Chef::Log.info("This cookbook is not yet supported on #{node['platform']}")
 end
 
 template "/etc/rstudio/rserver.conf" do
