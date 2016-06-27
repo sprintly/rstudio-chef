@@ -7,10 +7,8 @@ else
     server_name = node['rstudio']['nginx']['server_name']
 end
 
-case node["platform"].downcase
-when "ubuntu"
-    template_file = "/etc/nginx/sites-available/#{server_name}"
-when "centos", "redhat", 'scientific', 'amazon', 'oracle'
+case node['platform'].downcase
+when 'ubuntu', 'centos', 'redhat', 'scientific', 'amazon', 'oracle'
     template_file = "/etc/nginx/sites-available/#{server_name}"
 end
 
