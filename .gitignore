@@ -4,3 +4,6 @@ Gemfile.lock
 *.bak
 .kitchen/
 .kitchen.local.yml
+.kitchen/
+.kitchen.local.yml
+*.bak
