@@ -1,7 +1,8 @@
 name             'rstudio'
+chef_version     '>= 14'
 maintainer       'Sprint.ly, Inc.'
 maintainer_email 'joe@joestump.net'
-license          'BSD'
+license          'MIT'
 description      'Installs/Configures rstudio'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.4.0'
