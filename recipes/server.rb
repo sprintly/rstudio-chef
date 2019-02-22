@@ -1,6 +1,3 @@
-# Set up the package repository.
-include_recipe 'chef-sugar::default'
-
 if debian?
     include_recipe "apt"
 
