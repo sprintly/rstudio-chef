@@ -1,9 +1,6 @@
 ---
 driver:
-  name: vagrant
-  network:
-    - ["forwarded_port", {guest: 8787, host: 8787}]
-    - ["private_network", {ip: "192.168.33.33"}]
+  name: docker
 
 provisioner:
   name: chef_zero
@@ -24,7 +21,7 @@ suites:
 
     attributes:
         r:
-            version: "3.2.2"
+            version: "3.5.0"
             checksum: "9c9152e74134b68b0f3a1c7083764adc1cb56fd8336bec003fd0ca550cd2461d"
             config_opts: [ "--enable-R-shlib=yes", "--with-x=no", "--prefix=/usr/local" ]
 
