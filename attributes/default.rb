@@ -24,13 +24,13 @@ default['rstudio']['server']['www_address'] = '127.0.0.1'
 default['rstudio']['server']['ld_library_path'] = ''
 default['rstudio']['server']['r_binary_path'] = ''
 default['rstudio']['server']['user_group'] = ''
-default['rstudio']['server']['version'] = '0.99.483'
+default['rstudio']['server']['version'] = '1.1.463'
 default['rstudio']['server']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? "amd64" : "i386"
 
 # RStudio Session
 default['rstudio']['session']['timeout'] = '30'
 default['rstudio']['session']['package_path'] = ''
-default['rstudio']['session']['cran_repo'] = 'https://cran.fhcrc.org/'
+default['rstudio']['session']['cran_repo'] = 'https://cloud.r-project.org/'
 
 # Nginx
 default['rstudio']['nginx']['port'] = '80'
@@ -51,7 +51,7 @@ default['rstudio']['shiny']['log_dir'] = '/var/log/shiny-server'
 default['rstudio']['shiny']['directory_index'] = 'on'
 
 # Shiny can't be installed by APT. Don't get me started.
-default['rstudio']['shiny']['version'] = '0.4.0.8'
+default['rstudio']['shiny']['version'] = '1.5.9.923'
 default['rstudio']['shiny']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? "amd64" : "i386"
 
 # Shiny server supports the users cookbook for HTTP Auth
