@@ -1,16 +1,10 @@
-require 'spec_helper'
+require 'chefspec'
+require 'chefspec/berkshelf'
 
 describe 'rstudio::server' do
-  let(:chef_run) do
-    runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04')
-    runner.converge(described_recipe)
-  end
+  platform 'ubuntu', '16.04'
 
-  it('should install r-base') do
-    expect(chef_run).to install_package('r-base')
-  end
-
-  it('should install rstudio-server') do
-    expect(chef_run).to install_package('rstudio-server')
+  context 'basic package install' do
+    it {is_expected.to install_package(['rstudio-server', 'libssl1.0.0', 'psmisc'])}
   end
 end
