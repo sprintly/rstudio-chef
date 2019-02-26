@@ -1,34 +1,19 @@
 if debian?
-    include_recipe "apt"
 
-    apt_repository "rstudio-cran" do
-        uri node['rstudio']['apt']['uri']
-        keyserver node['rstudio']['apt']['keyserver']
-        key node['rstudio']['apt']['key']
-        distribution "#{node['lsb']['codename']}/"
+    package "libssl1.0.0" do
+      action :install
+    end if ubuntu?
+
+    package "psmisc" do
+      action :install
     end
-
-    package "r-base" do
-        action :install
-    end
-
-    #package "libssl0.9.8" do
-    #    action :install
-    #end
 
     remote_rstudio_server_file = "#{node['rstudio']['server']['base_download_url']}/rstudio-server-#{node['rstudio']['server']['version']}-#{node['rstudio']['server']['arch']}.deb"
     local_rstudio_server_file = "#{Chef::Config[:file_cache_path]}/rstudio-server-#{node['rstudio']['server']['version']}-#{node['rstudio']['server']['arch']}.deb"
 
 end
 
-if rhel?
-    # Chef::Application.fatal!("Redhat based platforms are not yet supported")
-    
-    include_recipe 'yum-epel'
-    
-    #package "R" do
-    #    action :install
-    #end
+if rhel? or amazon_linux?
 
     if _64_bit?
         arch = "x86_64"

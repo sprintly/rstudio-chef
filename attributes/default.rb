@@ -1,18 +1,6 @@
 # CRAN
 default['rstudio']['cran']['mirror'] = 'https://cran.rstudio.com/'
 
-# APT configuration for Ubuntu or Debian installs.
-case node["platform"].downcase  
-when "ubuntu"
-    default['rstudio']['apt']['key'] = 'E084DAB9'
-    default['rstudio']['apt']['keyserver'] = 'keyserver.ubuntu.com'
-    default['rstudio']['apt']['uri'] = 'http://cran.stat.ucla.edu/bin/linux/ubuntu'
-when "debian"
-    default['rstudio']['apt']['key'] = '381BA480'
-    default['rstudio']['apt']['keyserver'] = 'subkeys.pgp.net'
-    default['rstudio']['apt']['uri'] = 'http://cran.stat.ucla.edu/bin/linux/debian'
-end
-
 # You can define a simple array of packages in your role/environment/node and the 
 # CRAN recipe will install them.
 default['rstudio']['cran']['packages'] = []
