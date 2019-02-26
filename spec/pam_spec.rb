@@ -1,9 +1,10 @@
-require 'spec_helper'
+require 'chefspec'
+require 'chefspec/berkshelf'
 
 describe 'rstudio::pam' do
   let(:chef_run) do
-    runner = ChefSpec::SoloRunner.new platform: 'ubuntu', version: '12.04' do |node|
-      node.set['rstudio']['nginx']['server_name'] = 'test.example.com'
+    runner = ChefSpec::SoloRunner.new platform: 'ubuntu', version: '16.04' do |node|
+      node.normal['rstudio']['nginx']['server_name'] = 'test.example.com'
     end.converge(described_recipe)
   end
 

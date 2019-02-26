@@ -1,7 +1,7 @@
 <% if @use_ssl %>
 server {
     listen      80;
-    server_name <%= node[:rstudio][:nginx][:server_name] %>;
+    server_name <%= node['rstudio']['nginx']['server_name'] %>;
     rewrite     ^   https://$server_name$request_uri? permanent;
 }
 
@@ -10,41 +10,41 @@ server {
   <% if @use_ssl %>
   listen                    443 ssl;
   ssl                       on;
-  ssl_certificate           <%= node[:rstudio][:ssl][:crt_file] %>;
-  ssl_certificate_key       <%= node[:rstudio][:ssl][:key_file] %>;
-  ssl_protocols             SSLv3 TLSv1;
+  ssl_certificate           <%= node['rstudio']['ssl']['crt_file'] %>;
+  ssl_certificate_key       <%= node['rstudio']['ssl']['key_file'] %>;
+  ssl_protocols             TLSv1.2;
   ssl_ciphers               ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM;
   <% else %>
-  listen        <%= node[:rstudio][:nginx][:port] %>;
+  listen        <%= node['rstudio']['nginx']['port'] %>;
   <% end %>
-  server_name   <%= node[:rstudio][:nginx][:server_name] %>;
+  server_name   <%= node['rstudio']['nginx']['server_name'] %>;
 
-  <% if node[:rstudio][:nginx][:location] != '' %>
-  location <%= node[:rstudio][:nginx][:location] %> {
-  <% if node[:rstudio][:nginx][:location] != '/' %>
-    rewrite ^<%= node[:rstudio][:nginx][:location] %>(.*)$ /$1 break;
+  <% if node['rstudio']['nginx']['location'] != '' %>
+  location <%= node['rstudio']['nginx']['location'] %> {
+  <% if node['rstudio']['nginx']['location'] != '/' %>
+    rewrite ^<%= node['rstudio']['nginx']['location'] %>(.*)$ /$1 break;
   <% end %>
-    proxy_pass http://<%= node[:rstudio][:server][:www_address] %>:<%= node[:rstudio][:server][:www_port] %>;
-    proxy_redirect http://<%= node[:rstudio][:server][:www_address] %>:<%= node[:rstudio][:server][:www_port] %>/ $scheme://$host<%= node[:rstudio][:nginx][:location] %>;
+    proxy_pass http://<%= node['rstudio']['server']['www_address'] %>:<%= node['rstudio']['server']['www_port'] %>;
+    proxy_redirect http://<%= node['rstudio']['server']['www_address'] %>:<%= node['rstudio']['server']['www_port'] %>/ $scheme://$host<%= node['rstudio']['nginx']['location'] %>;
   }
   <% end %>
 
-  <% if node[:rstudio][:nginx][:shiny_location] != '' %>
+  <% if node['rstudio']['nginx']['shiny_location'] != '' %>
   # Looks like we've configured and are using the Shiny server as well. This will proxy that
   # to the Shiny server. 
-  <% if node[:rstudio][:nginx][:shiny_location] == node[:rstudio][:nginx][:location] %>
+  <% if node['rstudio']['nginx']['shiny_location'] == node['rstudio']['nginx']['location'] %>
   # RStudio and Shiny can't live at the same HTTP location!
   <% else %>
-  location <%= node[:rstudio][:nginx][:shiny_location] %> {
+  location <%= node['rstudio']['nginx']['shiny_location'] %> {
   <% if node['rstudio']['shiny']['htpasswd_file'] != '' %>
     auth_basic "Shiny";
     auth_basic_user_file <%= node['rstudio']['shiny']['htpasswd_file'] %>;
   <% end %>
-  <% if node[:rstudio][:nginx][:shiny_location] != '/' %>
-    rewrite ^<%= node[:rstudio][:nginx][:shiny_location] %>(.*)$ /$1 break;
+  <% if node['rstudio']['nginx']['shiny_location'] != '/' %>
+    rewrite ^<%= node['rstudio']['nginx']['shiny_location'] %>(.*)$ /$1 break;
   <% end %>
-    proxy_pass http://<%= node[:rstudio][:shiny][:www_address] %>:<%= node[:rstudio][:shiny][:www_port] %>;
-    proxy_redirect http://<%= node[:rstudio][:shiny][:www_address] %>:<%= node[:rstudio][:shiny][:www_port] %>/ $scheme://$host<%= node[:rstudio][:nginx][:location] %>;
+    proxy_pass http://<%= node['rstudio']['shiny']['www_address'] %>:<%= node['rstudio']['shiny']['www_port'] %>;
+    proxy_redirect http://<%= node['rstudio']['shiny']['www_address'] %>:<%= node['rstudio']['shiny']['www_port'] %>/ $scheme://$host<%= node['rstudio']['nginx']['location'] %>;
   }
   <% end %>
   <% end %>

@@ -1,6 +1,8 @@
 source "https://api.berkshelf.com"
 metadata
 
-cookbook 'apt', '~> 2.9.2'
-cookbook 'nginx', '~> 2.7.6'
-cookbook 'r', github: 'stevendanna/cookbook-r'
+cookbook 'apt', '~> 7.1'
+cookbook 'nginx', '~> 9.0'
+cookbook 'chef-sugar', "~> 5.0"
+cookbook 'r', github: 'davidski/chef-r', 'chef14'
+#cookbook 'r', path: "../chef-r"

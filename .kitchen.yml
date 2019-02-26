@@ -1,0 +1,64 @@
+---
+driver:
+  name: dokken
+  chef_verison: latest
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-18.04
+    driver:
+      image: dokken/ubuntu-18.04
+      privileged: true
+      pid_one_command: /bin/systemd
+  - name: ubuntu-16.04
+    driver:
+      image: dokken/ubuntu-16.04
+      privileged: true
+      pid_one_command: /bin/systemd
+  - name: centos-7
+    driver:
+      image: dokken/centos-7
+      privileged: true
+      pid_one_command: /usr/lib/systemd/systemd
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro # required by systemd
+  - name: debian-9
+    driver:
+      image: dokken/debian-9
+      privileged: true
+      pid_one_command: /bin/systemd
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro # required by systemd
+  - name: amazon
+    driver_config:
+      image: dokken/amazonlinux-2
+      privileged: true
+      pid_one_command: /usr/lib/systemd/systemd
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro # required by systemd
+
+suites:
+  - name: default
+    run_list:
+      - recipe[rstudio::cran]
+      - recipe[rstudio::server]
+
+  - name: shiny
+    data_bags_path: "test/integration/default/data_bags"
+    run_list:
+      - recipe[rstudio::cran]
+      - recipe[rstudio::nginx]
+      - recipe[rstudio::server]
+      - recipe[rstudio::shiny]
+    attributes:
+      rstudio:
+        nginx:
+          server_name: "localhost"

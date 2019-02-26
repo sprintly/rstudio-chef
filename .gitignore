@@ -1,3 +1,9 @@
 Berksfile.lock
 Gemfile.lock
 *.swp
+*.bak
+.kitchen/
+.kitchen.local.yml
+.kitchen/
+.kitchen.local.yml
+*.bak
