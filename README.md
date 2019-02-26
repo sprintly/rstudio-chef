@@ -1,8 +1,13 @@
 # Description
 
-This cookbook will install RStudio Server along with some extras that will configure various usages. In addition to installing the server, it can optionally set up CRAN's distribution-specific repositories, configure various Nginx options (SSL, proxy, and alternate locations), as well as an alternative to the default PAM configuration that doe *not* rely on a local user account.
+This cookbook will install RStudio Server along with some extras that will 
+configure various usages. In addition to installing the server, it can 
+optionally set up CRAN's distribution-specific repositories, configure various 
+Nginx options (SSL, proxy, and alternate locations), as well as an 
+alternative to the default PAM configuration that does *not* rely on a local 
+user account.
 
-* `rstudio::server` will download and configure the RServer packages.
+* `rstudio::server` will download and configure the RStudio Server package.
 * `rstudio::pam` will install the PAM [pam_pwdfile](https://github.com/tiwe-de/libpam-pwdfile) module. This module allows you to define username/password combinations using the `mkpasswd` utility. This allows you to give access to RStudio Server *without* creating accounts on the server itself.
 * `rstudio::cran` will install R packages listed in `node['rstudio']['cran']['packages']` using `r_package` from the [r](https://github.com/stevendanna/cookbook-r/) cookbook.
 * `rstudio::nginx` will configure an Nginx site for RStudio. It offers the ability to proxy via a separate URL as well as basic SSL support. When coupled with `rstudio::pam`, you can give remote access to RStudio via Nginx over SSL to people *without* direct access to the server via SSH.
